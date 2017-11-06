@@ -1,0 +1,16 @@
+{
+  "name": "francais_mofo",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "twit": "^2.2.9"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-plumber": "^1.0.1"
+  }
+}
