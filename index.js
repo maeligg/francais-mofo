@@ -39,7 +39,7 @@ const tweet = () => {
           const username = selectedTweet.user.screen_name;
           const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${anglicismes[selectedAnglicisme]} » ?`;
 
-          T.post('statuses/update', { status: `@${username} ${tweetContent}`, in_reply_to_status_id: tweetId }, (postErr, postData) => {
+          T.post('statuses/update', { status: `.@${username} ${tweetContent}`, in_reply_to_status_id: tweetId }, (postErr, postData) => {
             if (postErr) {
               console.log('error: ', postErr);
             } else {
