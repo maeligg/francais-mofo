@@ -12,5 +12,9 @@
     "gulp": "^3.9.0",
     "gulp-eslint": "^3.0.1",
     "gulp-plumber": "^1.0.1"
+  },
+  "scripts": {
+    "start": "node index",
+    "deploy": "now -e consumer_key=@consumer_key -e consumer_secret=@consumer_secret -e access_token=@access_token -e access_token_secret=@access_token_secret"
   }
 }
