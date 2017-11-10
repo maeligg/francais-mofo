@@ -66,4 +66,4 @@ setInterval(() => {
   } catch (e) {
     console.log(e);
   }
-}, 1000 * 60 * 60 * 2); // tweets every 2 hours
+}, 1000 * 60 * 60); // tweets every hour
