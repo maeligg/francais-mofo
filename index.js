@@ -1,5 +1,10 @@
 const Twit = require('twit');
 const anglicismes = require('./anglicismes.json');
+const { createServer } = require('http');
+
+// Now cli requires an HTTP server to deploy the app
+const server = createServer(() => {});
+server.listen(3000);
 // Uncomment these lines if running locally (see readme for more details)
 // const config = require('./config.js');
 // process.env = config;
@@ -60,10 +65,4 @@ const tweet = () => {
 
 tweet();
 
-setInterval(() => {
-  try {
-    tweet();
-  } catch (e) {
-    console.log(e);
-  }
-}, 1000 * 60 * 60); // tweets every hour
+setInterval(tweet, 1000 * 60 * 60); // tweets every hour
