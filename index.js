@@ -10,7 +10,6 @@ server.listen(3000);
 // const config = require('./config.js');
 // process.env = config;
 
-
 const T = new Twit({
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,
@@ -18,13 +17,11 @@ const T = new Twit({
   access_token_secret: process.env.access_token_secret,
 });
 
+let numResults;
+let haveWeTweetedAlready;
 
-// Build and post the tweet
-let numResults = 100;
-let haveWeTweetedAlready = false;
-
-const tweet = () => {
-  // Retrieve the last 100 tweets in French
+// Retrieve the last numResults tweets in French
+const getTweets = () => {
   T.get('search/tweets', { q: '-filter:nativeretweets', lang: 'fr', count: numResults }, (getErr, getData) => {
     const statuses = getData.statuses;
 
@@ -43,7 +40,7 @@ const tweet = () => {
           const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${anglicismes[selectedAnglicisme]} » ?`;
 
           haveWeTweetedAlready = true;
-
+          // Post the tweet
           T.post('statuses/update', { status: `.@${username} ${tweetContent}`, in_reply_to_status_id: tweetId }, (postErr, postData) => {
             if (postErr) {
               console.log('error: ', postErr);
@@ -54,13 +51,20 @@ const tweet = () => {
         }
       });
     });
-
-    // If no result was found, expand the results and search again (within a limit of 1000)
-    if (!haveWeTweetedAlready && numResults <= 1000) {
-      numResults += 100;
-      tweet();
-    }
   });
+}
+
+const tweet = () => {
+  numResults = 100;
+  haveWeTweetedAlready = false;
+
+  getTweets();
+
+  // If no result was found, expand the results and search again (within a limit of 1000)
+  if (!haveWeTweetedAlready && numResults <= 1000) {
+    numResults += 100;
+    getTweets();
+  }
 };
 
 
