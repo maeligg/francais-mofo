@@ -2,6 +2,7 @@ const Twit = require('twit');
 const anglicismes = require('./anglicismes.json');
 const { createServer } = require('http');
 
+
 // Now cli requires an HTTP server to deploy the app
 const server = createServer(() => {});
 server.listen(3000);
@@ -24,22 +25,17 @@ const tweet = () => {
   // Retrieve the last 100 tweets in French
   T.get('search/tweets', { q: '-filter:nativeretweets', lang: 'fr', count: numResults }, (getErr, getData) => {
     const statuses = getData.statuses;
-    let selectedTweet;
-    let selectedAnglicisme;
-    let regex;
 
     // Loop through all tweets
     Object.keys(statuses).forEach((statusKey) => {
       // Loop through all anglicismes
       Object.keys(anglicismes).forEach((anglicismeKey) => {
-        // If the tweet contains an anglicisme, save it along with the anglicisme in an array
-        // @TODO avoid updating regex, selectedTweet and selectedAnglicisme on each new match.
-        regex = new RegExp(`\\b${anglicismeKey}\\b`, 'g');
+        const regex = new RegExp(`\\b${anglicismeKey}\\b`, 'g');
 
+        // If the tweet contains a word from the json, we post a tweet with the corresponding translation
         if (regex.test(statuses[statusKey].text)) {
-          selectedTweet = statuses[statusKey];
-          selectedAnglicisme = anglicismeKey;
-
+          const selectedTweet = statuses[statusKey];
+          const selectedAnglicisme = anglicismeKey;
           const tweetId = selectedTweet.id_str;
           const username = selectedTweet.user.screen_name;
           const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${anglicismes[selectedAnglicisme]} » ?`;
@@ -63,6 +59,6 @@ const tweet = () => {
   });
 };
 
-tweet();
 
+tweet();
 setInterval(tweet, 1000 * 60 * 60); // tweets every hour
