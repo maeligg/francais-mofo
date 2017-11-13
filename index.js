@@ -21,6 +21,8 @@ const T = new Twit({
 
 // Build and post the tweet
 let numResults = 100;
+let haveWeTweetedAlready = false;
+
 const tweet = () => {
   // Retrieve the last 100 tweets in French
   T.get('search/tweets', { q: '-filter:nativeretweets', lang: 'fr', count: numResults }, (getErr, getData) => {
@@ -33,12 +35,14 @@ const tweet = () => {
         const regex = new RegExp(`\\b${anglicismeKey}\\b`, 'g');
 
         // If the tweet contains a word from the json, we post a tweet with the corresponding translation
-        if (regex.test(statuses[statusKey].text)) {
+        if (regex.test(statuses[statusKey].text) && !haveWeTweetedAlready) {
           const selectedTweet = statuses[statusKey];
           const selectedAnglicisme = anglicismeKey;
           const tweetId = selectedTweet.id_str;
           const username = selectedTweet.user.screen_name;
           const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${anglicismes[selectedAnglicisme]} » ?`;
+
+          haveWeTweetedAlready = true;
 
           T.post('statuses/update', { status: `.@${username} ${tweetContent}`, in_reply_to_status_id: tweetId }, (postErr, postData) => {
             if (postErr) {
@@ -52,7 +56,7 @@ const tweet = () => {
     });
 
     // If no result was found, expand the results and search again (within a limit of 1000)
-    if (!selectedTweet && numResults <= 1000) {
+    if (!haveWeTweetedAlready && numResults <= 1000) {
       numResults += 100;
       tweet();
     }
