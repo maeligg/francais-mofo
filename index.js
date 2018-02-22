@@ -46,7 +46,7 @@ const tweet = () => {
             T.post(
               'statuses/update',
               {
-                status: `.@${username} ${tweetContent}`,
+                status: `@${username} ${tweetContent}`,
                 in_reply_to_status_id: tweetId,
               },
               (postErr, postData) => {
