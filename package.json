@@ -8,5 +8,10 @@
   "scripts": {
     "start": "node index",
     "deploy": "now -e consumer_key=@consumer_key -e consumer_secret=@consumer_secret -e access_token=@access_token -e access_token_secret=@access_token_secret"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
   }
 }
