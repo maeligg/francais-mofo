@@ -23,7 +23,7 @@ const tweet = () => {
     'search/tweets',
     { q: '-filter:nativeretweets', lang: 'fr', count: 100 },
     (getErr, getData) => {
-      const { statuses } = getData.statuses;
+      const statuses = getData.statuses;
 
       // Loop through all tweets
       Object.keys(statuses).forEach((statusKey) => {
