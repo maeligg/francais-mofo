@@ -41,7 +41,6 @@ const tweet = () => {
             const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${
               anglicismes[selectedAnglicisme]
             } » ?`;
-            console.log(tweetContent);
 
             T.post(
               'statuses/update',
