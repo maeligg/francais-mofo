@@ -1,10 +1,6 @@
 const Twit = require('twit');
 const anglicismes = require('./anglicismes.json');
-const { createServer } = require('http');
 
-// Now cli requires an HTTP server to deploy the app
-const server = createServer(() => {});
-server.listen(3000);
 // Uncomment these lines if running locally (see readme for more details)
 // const config = require('./config.js');
 // process.env = config;
@@ -36,7 +32,7 @@ const tweet = () => {
           const tweetId = selectedTweet.id_str;
           const username = selectedTweet.user.screen_name;
           const tweetContent = `Plutôt que « ${selectedAnglicisme} », pourquoi ne pas utiliser « ${anglicismes[selectedAnglicisme]} » ?`;
-          console.log(tweetContent)
+          console.log(tweetContent);
 
           T.post('statuses/update', { status: `.@${username} ${tweetContent}`, in_reply_to_status_id: tweetId }, (postErr, postData) => {
             if (postErr) {
