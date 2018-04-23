@@ -25,7 +25,7 @@ const tweet = () => {
       Object.keys(statuses).forEach((statusKey) => {
         // Loop through all anglicismes
         Object.keys(anglicismes).forEach((anglicismeKey) => {
-          const regex = new RegExp(`(^|\\s)${anglicismeKey}($|[\\s.!?\\-])`, 'gi');
+          const regex = new RegExp(`(^|\\s)${anglicismeKey}($|[\\s.!?\\-])`, 'g');
 
           // If the tweet contains a word from the json,
           // we post a tweet with the corresponding translation
