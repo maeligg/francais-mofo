@@ -55,6 +55,8 @@ const tweet = () => {
           }
         });
       });
+
+      return;
     },
   );
 };
