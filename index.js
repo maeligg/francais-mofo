@@ -46,9 +46,9 @@ const tweet = () => {
               },
               (postErr, postData) => {
                 if (postErr) {
-                  console.log('error: ', postErr);
+                  return console.log('error: ', postErr);
                 } else {
-                  console.log('response: ', postData);
+                  return console.log('response: ', postData);
                 }
               },
             );
