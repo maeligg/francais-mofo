@@ -61,4 +61,3 @@ const tweet = () => {
 
 tweet();
 
-setInterval(tweet, 1000 * 60 * 60 * 3); // tweets every 3 hours
